@@ -1,0 +1,54 @@
+COPIAR OTROS FPS  —  para Avid Media Composer (Windows y Mac)
+==============================================================
+
+Busca en todos los bins de un proyecto los master clips y subclips cuyo FPS
+no es el del proyecto, y los copia a bins nuevos: UN BIN POR FPS.
+
+   Proyecto "MiDoc" a 25 fps con material mezclado  ->
+      MiDoc_23.98fps.avb   MiDoc_29.97fps.avb   MiDoc_50fps.avb ...
+
+Los bins se crean en una carpeta al lado de la carpeta de proyectos:
+   .../Avid Projects/MiDoc   ->   .../MiDoc_OTROS_FPS
+(fuera de "Avid Projects", para que Avid no la tome como un proyecto).
+
+No toca los bins del proyecto: solo los lee.
+No incluye secuencias, group clips, multicam ni clips de solo audio.
+Ignora los bins de la papelera de Avid (Trash) y del Attic.
+
+
+CÓMO SE USA
+-----------
+Windows:  arrastrá la carpeta del proyecto sobre Copiar_Otros_FPS.bat
+          (o doble clic y arrastrala a la ventana).
+Mac:      doble clic en Copiar_Otros_FPS.command y arrastrá la carpeta
+          del proyecto a la ventana.
+
+1. El script averigua el FPS del proyecto y te lo muestra.
+   Si está bien, Enter. Si no, escribí el correcto (25, 23.98, 29.97...).
+2. Muestra qué clips va a copiar, agrupados por FPS, y qué FORMATOS hay en
+   cada grupo (ej. "1920x1080p (120), 3840x2160p (8)").
+3. Escribí S y Enter para crear los bins.
+
+Después, para cada bin: creá en Avid un proyecto nuevo con ese FPS y el
+formato que indicó la lista, cerralo, copiá el bin a la carpeta del
+proyecto y volvé a abrirlo. Los clips tienen una columna "Formato" con la
+resolución de cada uno.
+
+Si lo corrés de nuevo, a los bins que ya existen solo se les agregan los
+clips nuevos (y antes se guarda un backup en la carpeta _backup).
+
+
+REQUISITOS
+----------
+Python 3. Windows: python.org, tildando "Add python.exe to PATH".
+Mac: python.org, instalador "macOS 64-bit universal2" (Intel y Apple Silicon).
+La primera vez instala solo la librería pyavb (necesita internet).
+
+Mac, solo la primera vez: macOS bloquea los scripts bajados de internet.
+Abrí la Terminal, escribí  xattr -cr  (con un espacio al final), arrastrá
+esta carpeta a la ventana y apretá Enter.
+
+
+AVANZADO (Terminal / CMD)
+-------------------------
+python copiar_otros_fps.py "carpeta del proyecto" [--fps 25] [--salida CARPETA] [--dry-run] [--si]
